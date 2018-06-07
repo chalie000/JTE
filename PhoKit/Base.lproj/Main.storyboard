@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xs2-l5-8Tv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Opa-Kp-Hmc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -17,14 +17,29 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JRT-zM-eJ5">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JRT-zM-eJ5" secondAttribute="bottom" id="3db-mC-Kea"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JRT-zM-eJ5" secondAttribute="trailing" id="Aye-bK-Shz"/>
+                            <constraint firstItem="JRT-zM-eJ5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="boK-L1-A3R"/>
+                            <constraint firstItem="JRT-zM-eJ5" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="h8U-NP-eKy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="JRT-zM-eJ5" id="kor-I6-n6U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="2350" y="69"/>
         </scene>
-        <!--Collection Viw Controller-->
+        <!--Photo-->
         <scene sceneID="dq6-Ye-ATn">
             <objects>
                 <collectionViewController id="xs2-l5-8Tv" customClass="CollectionViwController" customModule="PhoKit" customModuleProvider="target" sceneMemberID="viewController">
@@ -58,7 +73,8 @@
                                     <constraint firstItem="uD5-TS-Gi4" firstAttribute="top" secondItem="2TR-S1-me9" secondAttribute="top" id="xiV-NZ-s2r"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="image" destination="uD5-TS-Gi4" id="rPt-Ma-QtT"/>
+                                    <outlet property="imageView" destination="uD5-TS-Gi4" id="TFN-tc-hnR"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="yx5-zU-kz2"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -67,10 +83,29 @@
                             <outlet property="delegate" destination="xs2-l5-8Tv" id="YN9-ke-BpS"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" title="Photo" id="64h-C6-4QJ"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fqb-UL-b7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1455" y="32"/>
+            <point key="canvasLocation" x="1598" y="69"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="m92-uy-yrK">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Opa-Kp-Hmc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mma-1z-pSZ">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xs2-l5-8Tv" kind="relationship" relationship="rootViewController" id="1Eq-bU-PEO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lfo-lb-x6p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="869.60000000000002" y="68.815592203898049"/>
         </scene>
     </scenes>
 </document>

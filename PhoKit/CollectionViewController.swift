@@ -28,10 +28,17 @@ class CollectionViwController:UICollectionViewController
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCell", for: indexPath) as! ImageCellController
         let image = UIImage(named: "images/0\(indexPath.row + 1).jpeg")
-        cell.image.image = image
+        cell.imageView.image = image
         
         return cell
         
+        
+    }
+    
+    //Image Data Pass
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        (segue.destination as! ViewController).image = (sender as! ImageCellController).imageView.image!
         
     }
     
