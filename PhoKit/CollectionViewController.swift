@@ -7,10 +7,36 @@
 //
 
 import UIKit
+import Photos
+
 
 class CollectionViwController:UICollectionViewController
 {
+    var assetsFetchResults:PHFetchResult<PHAsset> = PHFetchResult<PHAsset>()
+    var imageManager:PHCachingImageManager!
     
+    
+    override func viewDidLoad()
+    {
+        PHPhotoLibrary.requestAuthorization()
+        {
+            (status) in switch status
+            {
+            case .authorized:
+                self.imageManager = PHCachingImageManager()
+                let options = PHFetchOptions()
+                options.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+                self.assetsFetchResults = PHAsset.fetchAssets(with: options)
+                self.collectionView?.reloadData()
+                
+            default:
+                NSLog("Can Not Acccess Photo")
+                    
+            }
+                
+        }
+        
+    }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int
     {
@@ -20,15 +46,21 @@ class CollectionViwController:UICollectionViewController
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return 7
+        return assetsFetchResults.count
         
     }
+    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCell", for: indexPath) as! ImageCellController
-        let image = UIImage(named: "images/0\(indexPath.row + 1).jpeg")
-        cell.imageView.image = image
+        let asset:PHAsset = self.assetsFetchResults[indexPath.item]
+        self.imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil)
+        {
+            (result:UIImage?, [AnyHashable:Any?]) in
+            cell.imageView.image = result
+            
+        }
         
         return cell
         

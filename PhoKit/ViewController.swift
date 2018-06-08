@@ -24,11 +24,21 @@ class ViewController: UIViewController
         
         imageView.image = image
         
+        let effectBtn:UIBarButtonItem = UIBarButtonItem(title: "Effect", style: UIBarButtonItemStyle.plain, target: self, action: #selector(applyEffect))
+        self.navigationItem.rightBarButtonItem = effectBtn
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+   @objc func applyEffect()
+    {
+        
     }
 
 
