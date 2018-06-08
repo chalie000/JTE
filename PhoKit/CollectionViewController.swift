@@ -55,12 +55,7 @@ class CollectionViwController:UICollectionViewController
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCell", for: indexPath) as! ImageCellController
         let asset:PHAsset = self.assetsFetchResults[indexPath.item]
-        self.imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil)
-        {
-            (result:UIImage?, [AnyHashable:Any?]) in
-            cell.imageView.image = result
-            
-        }
+
         
         return cell
         
