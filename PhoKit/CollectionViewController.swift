@@ -55,7 +55,11 @@ class CollectionViwController:UICollectionViewController
     {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCell", for: indexPath) as! ImageCellController
         let asset:PHAsset = self.assetsFetchResults[indexPath.item]
-
+        self.imageManager.requestImage(for: asset, targetSize: cell.frame.size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler:
+            {
+                (result:UIImage?, info:[AnyHashable:Any]?) -> Void in
+                cell.imageView.image = result
+            })
         
         return cell
         
@@ -65,7 +69,10 @@ class CollectionViwController:UICollectionViewController
     //Image Data Pass
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        (segue.destination as! ViewController).image = (sender as! ImageCellController).imageView.image!
+        //(segue.destination as! ViewController).image = (sender as! ImageCellController).imageView.image!
+        
+        let indexPath = self.collectionView?.indexPath(for: sender as! ImageCellController)
+        (segue.destination as! ViewController).asset = (self.assetsFetchResults[indexPath!.item])
         
     }
     

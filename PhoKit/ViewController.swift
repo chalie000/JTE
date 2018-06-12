@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import Photos
+
 
 class ViewController: UIViewController
 {
 
     @IBOutlet weak var imageView: UIImageView!
     
-    var image:UIImage = UIImage()
-    
+    var asset:PHAsset?
     
     
     override func viewDidLoad()
@@ -22,10 +23,14 @@ class ViewController: UIViewController
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        imageView.image = image
         
         let effectBtn:UIBarButtonItem = UIBarButtonItem(title: "Effect", style: UIBarButtonItemStyle.plain, target: self, action: #selector(applyEffect))
-        self.navigationItem.rightBarButtonItem = effectBtn
+        if (self.asset?.mediaType == PHAssetMediaType.image)
+        {
+            self.navigationItem.rightBarButtonItem = effectBtn
+        }
+        
+        showImage()
         
         
     }
@@ -41,6 +46,33 @@ class ViewController: UIViewController
         
     }
 
+    
+    func showImage()
+    {
+        let scale = UIScreen.main.scale
+        let size = CGSize(width: self.imageView.bounds.width * scale, height: self.imageView.bounds.height * scale)
+        
+        let imageManager = PHImageManager.default().requestImage(for: self.asset!, targetSize: size, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler:
+        {
+            (result:UIImage?, info:[AnyHashable:Any]?) -> Void in
+            self.imageView.image = result
+        })
+        
+    }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
