@@ -43,9 +43,32 @@ class ViewController: UIViewController
     
    @objc func applyEffect()
     {
+        let alertController = UIAlertController(title: "title", message: "message", preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        alertController.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        alertController.addAction(UIAlertAction(title:"Mono", style: UIAlertActionStyle.default
+            , handler: {
+                (action:UIAlertAction) in
+                self.applyFilter("CIPhotoEffectMono")
+                
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Instant", style: UIAlertActionStyle.default, handler: {
+            (action:UIAlertAction) in
+            self.applyFilter("CIPhotoEffectInstant")
+        }))
+        
+        alertController.modalPresentationStyle = UIModalPresentationStyle.popover
+        self.present(alertController, animated: true, completion: nil)
         
     }
+    
 
+    func applyFilter(_ filterName:String)
+    {
+        
+    }
     
     func showImage()
     {
