@@ -67,7 +67,27 @@ class ViewController: UIViewController
 
     func applyFilter(_ filterName:String)
     {
-        
+        self.asset?.requestContentEditingInput(with: nil, completionHandler:
+            {
+                (inputContent:PHContentEditingInput?, _:[AnyHashable:Any]?) -> Void  in
+                //https://dev.classmethod.jp/smartphone/iphone/swift-3-how-to-use-gcd-api-1/
+                DispatchQueue.global().async(execute:
+                    {
+                        () in
+                        let url =  inputContent?.fullSizeImageURL
+                        let orientation = inputContent?.fullSizeImageOrientation
+                        var inputImage = CIImage(contentsOf: url!, options: nil)
+                        
+                        inputImage = inputImage?.oriented(forExifOrientation: orientation!)
+                        
+                        
+                        
+                        
+                        
+                        
+                    })
+            
+            })
     }
     
     func showImage()
