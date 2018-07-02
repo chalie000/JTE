@@ -77,8 +77,33 @@ class ViewController: UIViewController
                         let url =  inputContent?.fullSizeImageURL
                         let orientation = inputContent?.fullSizeImageOrientation
                         var inputImage = CIImage(contentsOf: url!, options: nil)
-                        
                         inputImage = inputImage?.oriented(forExifOrientation: orientation!)
+                        
+                        //https://picolica.com/2017/03/12/swift3-photo-filter/
+                        let filter = CIFilter(name: filterName)
+                        filter?.setDefaults()
+                        filter?.setValue(inputImage, forKey: kCIInputImageKey)
+                        let outputImg = filter?.outputImage
+                        
+                        let context = CIContext()
+                        let image = context.createCGImage(outputImg!, from: outputImg!.extent)
+                        let uiImage = UIImage(cgImage: image!)
+                        
+                        let contentOutput = PHContentEditingOutput(contentEditingInput: inputContent!)
+                        let renderedData = UIImageJPEGRepresentation(uiImage, 0.9)
+                        
+                        if (((try? renderedData?.write(to: contentOutput.renderedContentURL, options: [.atomic])) != nil) != nil)
+                        {
+                            let archiveData = NSKeyedArchiver.archivedData(withRootObject: filterName)
+                            let adjData = PHAdjustmentData(formatIdentifier: "com.gbustudio.photo", formatVersion: "1.0", data: archiveData)
+                            contentOutput.adjustmentData = adjData
+                            
+                            
+                            
+                        }
+                        
+                        
+            
                         
                         
                         
